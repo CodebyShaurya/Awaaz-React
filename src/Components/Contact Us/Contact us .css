@@ -1,0 +1,25 @@
+.contant{
+    background-color: #0d0b11;
+    height: 2.25rem;
+    width:20rem;
+    margin: 4rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    border-radius: 1rem;
+    padding: 0.25rem;
+    padding-left: 0.5rem;
+    color: white;
+}
+
+.contants{
+    background-color: #0d0b11;
+    height: 10rem;
+    width:50rem;
+    margin: 4rem;
+    margin-top: 0rem;
+    border-radius: 1rem;
+    padding: 0.25rem;
+    padding-left: 0.5rem;
+    text-align: justify;
+    color: white;
+}

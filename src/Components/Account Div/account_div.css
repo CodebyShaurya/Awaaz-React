@@ -1,0 +1,35 @@
+.account{
+    margin:10rem;
+    box-shadow:   0  9px 08px 1px #CE4DA4, 0 6px 20px 10px #7353E5;
+    border-radius: 1rem;
+    height: 15rem;
+}
+.account h1{
+    margin-top: 5rem;
+    color: white;
+    grid-column: span 2;
+}
+.account button{
+    margin-top: 5rem;
+    border-radius: 1rem;
+    height: 3rem;
+    width: 10rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.account button:hover{
+    width: 11rem;
+    height: 4rem;
+}
+
+.blacknwhit{
+    background-color: white;
+    color: #13111A;
+}
+
+.whitnblack{
+    background-color: transparent;
+    border: 1px solid white;
+    color: white;
+}

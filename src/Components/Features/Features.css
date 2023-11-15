@@ -1,0 +1,15 @@
+
+
+.crdgrid{
+    /* padding:5rem; */
+    margin-top:10rem;
+    display:grid;
+    grid-template-columns: repeat(auto-fit,minmax(30rem,1fr));
+    justify-items: center;
+    background: radial-gradient(#CE4DA4,#7353E5, #13111A,#13111A,#13111A,#13111A,#13111A, #13111A);
+
+}
+
+.crdgrid:hover{
+
+}

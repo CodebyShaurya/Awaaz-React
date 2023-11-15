@@ -1,0 +1,27 @@
+.about1{
+    padding:6rem;
+    display:grid;
+    grid-template-columns: repeat(auto-fit,minmax(100px,1fr));
+    color:white
+}
+.about1txt p{
+    color:#a09e9e;
+}
+
+.grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(100px,1fr));
+}
+.inside_1txt{
+    grid-column: span 3;
+}
+
+.inside_1txt li{
+    color: #a09e9e;
+    
+}
+
+.margin1{
+    margin:1rem;
+    margin-top: 2rem;;
+}
