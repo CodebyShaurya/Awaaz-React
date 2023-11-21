@@ -1,10 +1,10 @@
-import './about.css';
-import arti from './articlualtion_mastery.png';
-import perspn from './personalised_weekly_assesment.png';
-import mouth from './mouth_model.png';
-import real from './realistic_speech_modelling.png';
-import virtl from './virtual_env.png'
-import speech from './speech_detection_weekly_analysis.png'
+import '../CSS/About.css';
+import arti from '../Assets/articlualtion_mastery.png';
+import perspn from '../Assets/personalised_weekly_assesment.png';
+import mouth from '../Assets/mouth_model.png';
+import real from '../Assets/realistic_speech_modelling.png';
+import virtl from '../Assets/virtual_env.png'
+import speech from '../Assets/speech_detection_weekly_analysis.png'
 
 const About = () => {
     return (

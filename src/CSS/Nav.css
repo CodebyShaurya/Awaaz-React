@@ -2,9 +2,7 @@
     display: grid;
     grid-template-columns: repeat(auto-fit,minmax(135px,1fr));
     margin-top: 1rem;
-    
-    
-    
+        
 }
 
 .logmid{
