@@ -1,33 +1,64 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Nav from './Nav';
 import '../CSS/Learnings.css';
 import Footer from './Footer';
 
-fetch("http://localhost:5000/generate_word", {
-    method: "GET",
-})
-.then(response => {
-    if (!response.ok) {
-        throw new Error("Error");
-    }   
-    return response.json();
-})
-.then(data => {
-    console.log(data);
-})
-.catch(error => {
-    console.error("Problem detected", error);
-});
+// const [wordData, setWordData] = useState(null);
+
+// fetch("http://localhost:5000/generate_word", {
+//     method: "GET",
+// })
+//     .then(response => {
+//         if (!response.ok) {
+//             throw new Error("Error");
+//         }
+//         return response.json();
+//     })
+//     .then(data => {
+//         console.log(data);
+//         setWordData(data);
+//     })
+//     .catch(error => {
+//         console.error("Problem detected", error);
+//     });
 
 
-const Learnings = () => {
+const Learnings = (data) => {
+    const [wordData, setWordData] = useState(null);
+    const fetchData = () => {
+        fetch('http://localhost:5000/generate_word', {
+            method: 'GET',
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Error');
+                }
+                return response.json();
+            })
+            .then(data => {
+                setWordData(data);
+                console.log(data); // Update the state with the new data
+            })
+            .catch(error => {
+                console.error('Problem detected', error);
+            });
+    };
     return (
+
         <>
             <Nav />
+
             <div className="main">
+
                 <div className="main2">Detection</div>
                 <div className="main3">
-                    <div className="main4">Sunday<br />/ˈsʌndeɪ</div>
+                    <button onClick={fetchData} style={{position: "absolute", left: "550px", top: "250px", borderRadius:"8px", height:"2.5rem", background:"none", borderColor:"white", color:"white"}}>Generate New Word</button>
+                    {wordData ? (
+                        <div className="main4">{wordData.word1 ?? 'Test Yourself'}<br />/ˈsʌndeɪ</div>
+                    ) : (
+                        <div className="main4" style={{top:"8rem"}}>Let's test</div>
+
+                    )}
                     <div className="main5">
                         1. Sundae  (093%) <br />
                         2. Sunday  (100%)<br />
@@ -40,9 +71,11 @@ const Learnings = () => {
                         <path d="M10 8a2 2 0 1 1-4 0V3a2 2 0 1 1 4 0zM8 0a3 3 0 0 0-3 3v5a3 3 0 0 0 6 0V3a3 3 0 0 0-3-3" />
                     </svg></div>
                     <div className="main7">Listening...</div>
-                    <div className="main8">Average % approved = 40%</div>
+                    <div className="main8" style={{top:'20rem', left:"31rem"}}>Average % approved = 40%</div>
                     <div className="main9">Attempts</div>
                 </div>
+
+
             </div>
 
             <div class="first-div">Improvisation</div> <br /> <br />

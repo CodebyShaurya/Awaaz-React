@@ -107,18 +107,18 @@ def audio_to_text(file_path):
     return transcript
 
 
-@app.route('/record_audio', methods=['POST'])
-def record_audio():
-    global COUPLED
-    try:
-        word_from_user = audio_to_text("output.wav")
-        output_from_check_word = check(EXAMPLE[COUPLED[0]].upper(), word_from_user.upper(),
-                                       COUPLED[0], (COUPLED[1] + EXAMPLE[COUPLED[0]][len(COUPLED[0]):]).upper())
-        return output_from_check_word
+# @app.route('/record_audio', methods=['POST'])
+# def record_audio():
+#     global COUPLED
+#     try:
+#         word_from_user = audio_to_text("output.wav")
+#         output_from_check_word = check(EXAMPLE[COUPLED[0]].upper(), word_from_user.upper(),
+#                                        COUPLED[0], (COUPLED[1] + EXAMPLE[COUPLED[0]][len(COUPLED[0]):]).upper())
+#         return output_from_check_word
 
-    except Exception as e:
-        print("Error:", str(e))
-        return jsonify({"error": "An error occurred."})
+#     except Exception as e:
+#         print("Error:", str(e))
+#         return jsonify({"error": "An error occurred."})
 
 
 if __name__ == "__main__":
