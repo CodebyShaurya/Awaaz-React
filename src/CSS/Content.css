@@ -3,6 +3,7 @@
     color:white;
     font-weight: bold;
     margin-bottom: 0rem;
+    text-align: center;
 }
 .line2{
     font-size: 4rem;
@@ -10,9 +11,9 @@
     background-clip:text;
     color:transparent;
     margin-top: 0rem;
-    margin-bottom: 0.75rem;
-    
+    margin-bottom: 0.75rem;    
     font-weight: bold;
+    text-align: center;
 }
 
 .small_text{
@@ -20,6 +21,7 @@
     font-size: 1.5rem;
     margin-left:27.5%;
     margin-right:27.5%;
+    text-align: center;
 }
 
 .Features{

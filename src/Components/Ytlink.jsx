@@ -5,9 +5,11 @@ const Ytlink = () => {
     return (<div className="ytlink">
         <h1>How to get started?</h1>
         <p>Ready to transform your speech? Follow these steps and start your journey today.</p>
-        <a href='www.linkedin.com/in/shaurya--gupta'>
-            <img src={yt} alt='YT link' />
-        </a>
+        <div style={{textAlign:"center"}}>
+            <a href='www.linkedin.com/in/shaurya--gupta' style={{textAlign:"center"}}>
+                <img src={yt} alt='YT link' />
+            </a>
+        </div>
     </div>
     )
 }
