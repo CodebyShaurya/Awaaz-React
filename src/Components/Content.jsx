@@ -1,5 +1,6 @@
 import '../CSS/Content.css'
 import dashboard from '../Assets/dashboard.png'
+
 const Content = () => {
     return (
         <div>
@@ -20,7 +21,10 @@ const Content = () => {
                 <div />
                 <div />
             </div>
+            <div style={{textAlign:"center"}}>
             <img src={dashboard} alt='Dashboard' />
+
+            </div>
         </div>
     )
 }

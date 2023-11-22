@@ -5,14 +5,15 @@ import mouth from '../Assets/mouth_model.png';
 import real from '../Assets/realistic_speech_modelling.png';
 import virtl from '../Assets/virtual_env.png'
 import speech from '../Assets/speech_detection_weekly_analysis.png'
+import Nav from './Nav';
 
 const About = () => {
     return (
         <div>
         <div className='about1'>
             <div className='about1txt'>
-                <h1>Real-Time Speech Detection and Weekly Test Analysis.</h1>
-                <p>Unlock the potential of your voice through cutting-edge technology. Our platform not only hears your words but guides you towards  eloquence with precision.</p>
+                <h1 style={{textAlign:'center'}}>Real-Time Speech Detection and Weekly Test Analysis.</h1>
+                <p style={{textAlign:'center'}}>Unlock the potential of your voice through cutting-edge technology. Our platform not only hears your words but guides you towards  eloquence with precision.</p>
                 <div className='grid'>
                     <img className='crdimg margin1' src={arti} />
                     <div className='inside_1txt'>
@@ -42,7 +43,7 @@ const About = () => {
 
         <div className='about1'>
             
-        <img src={mouth} style={{height: "400px",padding:'2rem'}}/>
+            <img src={mouth} style={{height: "400px",padding:'2rem', }}/>
             <div className='about1txt'>
                 <h1>Dynamic 3-Dimensional Representation</h1>
                 <p>A 3-dimensional model provides a virtual representation of the articulatory structures involved in speech production with oral cavity.</p>

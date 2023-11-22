@@ -18,12 +18,14 @@
     color: white;
     font-size: 3.5rem;
     left:-10px;    
+    text-align: center;
 }
 .logopic{
     height: 4rem;
 }
 .logend{
     margin-top: 0.5rem;
+    text-align: center;
 }
 
 
