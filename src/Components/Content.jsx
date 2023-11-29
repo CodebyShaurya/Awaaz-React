@@ -1,7 +1,8 @@
 import '../CSS/Content.css'
 import dashboard from '../Assets/dashboard.png'
+import { Link } from 'react-router-dom';
 
-const Content = () => {
+const Content = ({ scrollToFeatures }) => {
     return (
         <div>
             <p className='line1'>
@@ -15,14 +16,14 @@ const Content = () => {
             </p>
             <div className='navbar btncontent'>
                 <div /><div />
-                <button className='SignOut Navcontent1'> Get Started </button>
+                <Link to="/learnings"><button className='SignOut Navcontent1'> Get Started </button></Link> 
                 <div />
-                <button className='Features Navcontent1'> Browse Features </button>
+                <button className='Features Navcontent1' onClick={scrollToFeatures}> Browse Features </button>
                 <div />
                 <div />
             </div>
-            <div style={{textAlign:"center"}}>
-            <img src={dashboard} alt='Dashboard' />
+            <div style={{ textAlign: "center" }}>
+                <img src={dashboard} alt='Dashboard' />
 
             </div>
         </div>
