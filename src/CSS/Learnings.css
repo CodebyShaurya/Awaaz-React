@@ -387,3 +387,8 @@
     gap: 1rem;
     /* Adjust as needed */
 }
+
+.qwertyui{
+    height: 0px;
+    width: 0px;
+}
