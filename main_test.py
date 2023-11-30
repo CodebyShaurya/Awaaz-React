@@ -119,6 +119,43 @@ def generate_word():
 
 #     return "Audio saved successfully"
 
+@app.route('/save-audio', methods=['POST'])
+def save_audio():
+    try:
+        data = request.get_json()
+        print(data)
+        blob_url = data.get('URL')
+        print(blob_url)
+
+        if not blob_url:
+            return jsonify({"error": "Missing 'blobURL' in request body"}), 400
+
+        # Fetch the blob data
+        response = requests.get(blob_url[5:])
+        print(response)
+        response.raise_for_status()  # Raise an exception for HTTP errors
+        blob_data = io.BytesIO(response.content)
+        print('hi')
+
+        # Convert blob data to buffer (assuming it's an audio file)
+        print('hi')
+        buffer = blob_data.getvalue()
+        print('hi')
+        # Save the audio data to a file (you may need to adjust this based on your requirements)
+        with wave.open("output.wav", "wb") as wf:
+            wf.setnchannels(1)  # adjust based on the audio channels
+            wf.setsampwidth(2)  # adjust based on the sample width
+            wf.setframerate(44100)  # adjust based on the audio framerate
+            wf.writeframes(buffer)
+
+        return "Audio saved successfully"
+
+    except requests.exceptions.RequestException as e:
+        return jsonify({"error": f"Request error: {str(e)}"}), 500
+
+    except Exception as e:
+        return jsonify({"error": f"An unexpected error occurred: {str(e)}"}), 500
+
 @app.route('/record_audio', methods=['POST'])
 def audio_to_text(file_path):
     client = OpenAI(api_key=OPENAI_API_KEY)
