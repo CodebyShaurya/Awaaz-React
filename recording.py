@@ -1,6 +1,7 @@
 from flask import Flask
 import pyaudio
 import wave
+from openai import OpenAI
 
 app = Flask(__name__)
 
@@ -11,7 +12,7 @@ def record():
     sample_format = pyaudio.paInt16  # 16 bits per sample
     channels = 2
     fs = 44100  # Record at 44100 samples per second
-    seconds = 10
+    seconds = 5
     filename = "output.wav"
 
     p = pyaudio.PyAudio()  # Create an interface to PortAudio
@@ -46,6 +47,16 @@ def record():
     wf.setframerate(fs)
     wf.writeframes(b''.join(frames))
     wf.close()
+
+    client = OpenAI(api_key="API KEY")
+
+    audio_file = open("output.wav", "rb")
+    transcript = client.audio.transcriptions.create(
+        model="whisper-1",
+        file=audio_file,
+        response_format="text"
+    )
+    print(transcript)
     return "FINISHED RECORDING"
 
 
