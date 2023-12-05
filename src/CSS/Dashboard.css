@@ -1,0 +1,98 @@
+/* .sidebar {
+    margin: 1%;
+    margin-top: 2%;
+    width: 20%;
+    height: 90vh;
+    background-color: white;
+    border-radius: 15px;
+    background-color: #1D232C;
+}
+
+.leaderboard {
+    width: 30%;
+    height: 45vh;
+    margin: 1%;
+    margin-left: 0;
+    margin-top: 2%;
+    border-radius: 15px;
+    background-color: #1D232C;
+}
+
+.weeklyProgress {
+    width: 60%;
+    height: 45vh;
+    background-color: #1D232C;
+    margin: 1%;
+    margin-left: 0;
+    margin-top: 2%;
+    border-radius: 15px;
+}
+
+.successRate {
+    width: 60%;
+    height: 45vh;
+    background-color: #1D232C;
+    margin: 1%;
+    margin-left: 0;
+    margin-top: 2%;
+    border-radius: 15px;
+    
+} */
+
+/* .dashboard {
+    display: grid;
+    gap: 10px;
+    padding: 20px;
+    height: 100vh;
+}
+
+.sidebar {
+    grid-column: 1 / span 1;
+    grid-row: 1 / span 3;
+    background-color: white;
+}
+
+.leaderboard {
+    grid-column: 3;
+    grid-row: 1 / span 2;
+    background-color:   white;
+}
+
+.weeklyProgress {
+    grid-column: 1 / span 2;
+    grid-row: 3;
+    grid-column-start: 2;
+    background-color: white;
+}
+
+.successRate {
+    background-color: white;
+    grid-row: span 2;
+} */
+
+.dashboard {
+    display: grid;
+    padding: 10px;
+    color: white;
+    height: 100vh;
+    grid-template-columns: 0.5fr 0.7fr 1.3fr;
+    grid-template-rows: 0.5fr 0.5fr;
+    gap: 10px;
+}
+
+.successRate {
+    grid-column: 2 / span 2;
+}
+
+.sidebar {
+    grid-row: span 2;
+}
+
+.grid-item {
+    border-radius: 15px;
+    background-color: #1D232C;
+}
+
+.weeklyProgress {
+    /* height: fit-content; */
+}
