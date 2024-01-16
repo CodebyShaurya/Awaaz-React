@@ -2,13 +2,14 @@
     display: grid;
     grid-template-columns: repeat(auto-fit,minmax(135px,1fr));
     margin-top: 1rem;
+    text-align: center;
         
 }
 
 .logmid{
     font-size:1.5rem;
     display: grid;
-    grid-template-columns: repeat(auto-fit,minmax(100px,1fr));
+    grid-template-columns: repeat(auto-fit,minmax(110px,1fr));
     color:white;
     margin-top: 1rem;
     grid-column: span 1.5;
@@ -31,7 +32,8 @@
 
 .SignOut{
     height: 4rem;
-    width:17rem;
+    /* grid-column: span 1.5; */
+    width:16vw;
     font-size: 1.5rem;
     cursor:pointer;
     color: white;
@@ -46,7 +48,7 @@
 
 .Navcontent1:hover{
     /* font-weight: bold; */
-    width: 15rem;
+    width: auto;
     cursor:pointer;
 
 }

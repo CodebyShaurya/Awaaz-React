@@ -35,7 +35,7 @@ const About = () => {
                     </div>
                 </div>
             </div>
-            <img src={speech} style={{height: "400px",padding:'2rem'}}/>
+            <img className='mainimg' src={speech}   />
 
         </div>
 
@@ -43,7 +43,7 @@ const About = () => {
 
         <div className='about1'>
             
-            <img src={mouth} style={{height: "400px",padding:'2rem', }}/>
+            
             <div className='about1txt'>
                 <h1>Dynamic 3-Dimensional Representation</h1>
                 <p>A 3-dimensional model provides a virtual representation of the articulatory structures involved in speech production with oral cavity.</p>
@@ -66,8 +66,9 @@ const About = () => {
                     </div>
                 </div>
             </div>
-
+            <img className='mainimg' src={mouth} />
         </div>
+        
     </div>
     )
 }

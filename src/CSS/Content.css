@@ -27,10 +27,57 @@
 .Features{
     height: 4rem;
     font-size: 1.5rem;
-    width:17rem;
+    /* width:17rem; */
+    width:16vw;
     cursor:pointer;
     color: white;
     border-radius: 1.5rem;
     background-color: #302C3F;
 }
+.image{
+    width:95vw;
+}
 
+@media screen and (max-width:800px) {
+    .small_text{
+        margin-left:15vw;
+        margin-right:15vw;
+    }
+    .btncontent{
+        display: block;
+        text-align: center;
+        /* margin:1rem; */
+    }
+    .Features{
+        margin: 1rem;
+        /* width: 30vw; */
+    }
+
+}
+
+
+@media screen and (max-width:680px) {
+
+    .Features{
+        margin: 1rem;
+        width: 40vw;
+    }
+    .navbar{
+        display: block;
+        margin: 1rem;
+    }
+    .SignOut{
+        margin: 1rem;
+        width:40vw;
+    }
+}
+@media screen and (max-width:680px) {
+
+.line1{
+    font-size: 2rem;
+}
+.line2{
+    font-size: 2.5rem;
+}
+
+}

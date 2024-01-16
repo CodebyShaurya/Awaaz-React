@@ -11,6 +11,7 @@ import io
 app = Flask(__name__)
 cors=CORS(app)
 COUPLED = {}
+COUPLED=[]
 OPENAI_API_KEY = "API K$Y"
 FS = 44100  # Sample rate
 SECONDS = 5  # Duration of recording
@@ -136,4 +137,4 @@ def audio_to_text(file_path):
 
 
 if __name__ == "__main__":
-    app.run(debug=True, port=5000)
+    app.run(debug=True, port=3001)

@@ -5,7 +5,7 @@ const Content = () => {
     return (
         <div>
             <p className='line1'>
-                Speak.Learn.Thrive.<br />
+                Speak. Learn. Thrive.
             </p>.
             <p className='line2'>
                 Brigding Gap with every word
@@ -14,15 +14,14 @@ const Content = () => {
                 Our goal is to empower individuals with speech challenges. Unlock your potential through personalized speech training.
             </p>
             <div className='navbar btncontent'>
-                <div /><div />
+                <div />
                 <button className='SignOut Navcontent1'> Get Started </button>
                 <div />
                 <button className='Features Navcontent1'> Browse Features </button>
                 <div />
-                <div />
             </div>
             <div style={{textAlign:"center"}}>
-            <img src={dashboard} alt='Dashboard' />
+            <img src={dashboard} alt='Dashboard' className='image' />
 
             </div>
         </div>

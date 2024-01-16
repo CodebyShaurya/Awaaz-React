@@ -1,9 +1,9 @@
 .about1{
-    padding:6rem;
+    padding:4rem;
     display:grid;
     grid-template-columns: repeat(auto-fit,minmax(100px,1fr));
     color:white
-}
+} 
 .about1txt p{
     color:#a09e9e;
 }
@@ -19,6 +19,21 @@
 .inside_1txt li{
     color: #a09e9e;
     
+}
+.mainimg{
+    width:40vw;
+
+}
+@media screen and (max-width:1200px) {
+    .about1{
+        display:block;
+        padding: 3rem;
+
+    }
+    .mainimg{
+        width: 70vw;
+        height: auto;
+    }
 }
 
 .margin1{

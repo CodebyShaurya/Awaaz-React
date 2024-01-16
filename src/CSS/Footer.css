@@ -160,3 +160,10 @@
   .container{
     color:white;
   }
+
+  @media screen and (max-width:500px) {
+    .container ul{
+      margin: 1rem;
+    }
+    
+  }

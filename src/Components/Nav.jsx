@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 const Nav = () => {
     return (
         <nav className='navbar'>
-            <div className='logset'><a href='http://localhost:3000/'><img src={logo} className='logopic' alt='AWAAZ' /></a></div>
+            <div className='logset'><a href='https://awaaz-tawny.vercel.app/'><img src={logo} className='logopic' alt='AWAAZ' /></a></div>
             <div className='logmid'>
                 <Link to="/" className='Navcontent' style={{textDecoration:"none", color:"white"}}>Home</Link>
                 <Link to="/about" className='Navcontent' style={{textDecoration:"none", color:"white"}} >About</Link>
