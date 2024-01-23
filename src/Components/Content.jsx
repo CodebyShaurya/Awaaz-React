@@ -1,7 +1,8 @@
 import '../CSS/Content.css'
 import dashboard from '../Assets/dashboard.png'
+import { Link } from 'react-router-dom';
 
-const Content = () => {
+const Content = ({ scrollToFeatures }) => {
     return (
         <div>
             <p className='line1'>
