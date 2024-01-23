@@ -3,7 +3,6 @@ import { useTheme } from '@mui/material/styles';
 import { LineChart, Line, XAxis, YAxis, Label, ResponsiveContainer } from 'recharts';
 import Title from './Title';
 
-// Generate Sales Data
 function createData(time, amount) {
   return { time, amount };
 }
@@ -23,8 +22,18 @@ export default function Chart() {
 
   return (
     <React.Fragment>
-      <Title>Weekly Progress</Title>
-      <ResponsiveContainer>
+      <Title style={{textDecoration: 'none'}}>
+        <p style={{display:'flex', justifyContent: 'space-around', fontSize: '15px', textDecoration: 'none', letterSpacing: '3px', alignItems:'top'}}>
+          WEEKLY PROGRESS
+          <div style={{display:'flex', gap: '10px', marginLeft: '40%'}}>
+            <span>Today</span>
+            <span>7D</span>
+            <span>1M</span>
+            <span>1Y</span>
+          </div>
+        </p>
+      </Title>
+      <ResponsiveContainer style={{paddingRight:'20px'}}>
         <LineChart
           data={data}
           margin={{
@@ -51,7 +60,7 @@ export default function Chart() {
                 fill: 'white'
               }}
             >
-              Percentage (%)
+              {/* Percentage (%) */}
             </Label>
           </YAxis>
           <Line

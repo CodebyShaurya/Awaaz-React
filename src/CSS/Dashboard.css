@@ -1,87 +1,46 @@
-/* .sidebar {
-    margin: 1%;
-    margin-top: 2%;
-    width: 20%;
-    height: 90vh;
-    background-color: white;
-    border-radius: 15px;
-    background-color: #1D232C;
-}
-
-.leaderboard {
-    width: 30%;
-    height: 45vh;
-    margin: 1%;
-    margin-left: 0;
-    margin-top: 2%;
-    border-radius: 15px;
-    background-color: #1D232C;
-}
-
-.weeklyProgress {
-    width: 60%;
-    height: 45vh;
-    background-color: #1D232C;
-    margin: 1%;
-    margin-left: 0;
-    margin-top: 2%;
-    border-radius: 15px;
-}
-
-.successRate {
-    width: 60%;
-    height: 45vh;
-    background-color: #1D232C;
-    margin: 1%;
-    margin-left: 0;
-    margin-top: 2%;
-    border-radius: 15px;
-    
-} */
-
-/* .dashboard {
-    display: grid;
-    gap: 10px;
-    padding: 20px;
-    height: 100vh;
-}
-
-.sidebar {
-    grid-column: 1 / span 1;
-    grid-row: 1 / span 3;
-    background-color: white;
-}
-
-.leaderboard {
-    grid-column: 3;
-    grid-row: 1 / span 2;
-    background-color:   white;
-}
-
-.weeklyProgress {
-    grid-column: 1 / span 2;
-    grid-row: 3;
-    grid-column-start: 2;
-    background-color: white;
-}
-
-.successRate {
-    background-color: white;
-    grid-row: span 2;
-} */
-
 .dashboard {
     display: grid;
     padding: 10px;
     color: white;
     height: 100vh;
-    grid-template-columns: 0.5fr 0.7fr 1.3fr;
-    grid-template-rows: 0.5fr 0.5fr;
+    grid-template-columns: 0.5fr 1fr;
+    grid-template-rows: 1fr 1fr;
     gap: 10px;
 }
 
 .successRate {
-    grid-column: 2 / span 2;
+    grid-column: 1 / span 3;
+}
+
+.leaderboard {
+    grid-row: 1 / span 1;
+    min-height: 25vh;
+    display: grid;
+    gap: 5%;
+    padding: 10px;
+    text-align: center;
+
+}
+
+.entries {
+    overflow-y: scroll;
+}
+
+.entries::-webkit-scrollbar {
+    width: 5px;
+}
+
+.entries::-webkit-scrollbar-track {
+    background: #1D232C;
+}
+
+.entries::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 6px;
+}
+
+.entries::-webkit-scrollbar-thumb:hover {
+    background-color: #555;
 }
 
 .sidebar {
@@ -89,10 +48,26 @@
 }
 
 .grid-item {
-    border-radius: 15px;
     background-color: #1D232C;
 }
 
 .weeklyProgress {
-    /* height: fit-content; */
+    grid-column: 2 / span 2;
+}
+
+.css-1qyzjp5-MuiPaper-root {
+    border-radius: 1px !important;
+}
+
+.css-12i7wg6-MuiPaper-root-MuiDrawer-paper {
+    background-color: #161B21 !important;
+}
+
+.css-1vzidx8-MuiTypography-root {
+    text-decoration: none !important;
+}
+
+#filled-basic {
+    color: white;
+    background-color: #1D232C;
 }

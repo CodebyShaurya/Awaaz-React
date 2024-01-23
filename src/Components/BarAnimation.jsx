@@ -12,8 +12,20 @@ export default function BarAnimation() {
   return (
     <Box sx={{ width: '100%' }}>
       <BarChart
+        options={
+          {
+            scales: {
+              xAxes: [
+                {
+                  barPercentage: 0.8
+                }
+              ]
+            }
+          }
+        }
         xAxis={[
           {
+            categoryGapRatio: 0.7,
             scaleType: 'band',
             data: ['Sh', 'Sa', 'Fu', 'Ck', 'Me', 'Se', 'Ha', 'Iu', 'Ph', 'Fh', 'Pb'],
           },
@@ -34,7 +46,7 @@ const highlightScope = {
 
 const series = [
   {
-    label: 'Sounds Success rate out of 6',
+    label: 'SOUND SUCCESS RATE',
     data: [
       1, 5, 6, 4, 5, 3, 4, 2, 6, 1, 6
     ],
