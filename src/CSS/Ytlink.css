@@ -9,3 +9,11 @@
     color: rgb(134, 134, 134);
     text-align: center;
 }
+
+@media screen and (max-width:674px){
+.ytimg{
+    width:70vw;
+}
+
+    
+}

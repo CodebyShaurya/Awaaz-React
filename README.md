@@ -1,70 +1,46 @@
-# Getting Started with Create React App
+# Awaaz-1.0
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+Awaaz-1.0 is a cutting-edge web application designed to revolutionize the landscape of speech-sound disorders detection and improvisation. Tailored for individuals facing challenges such as intellectual disabilities, hearing impairments, cerebral palsy, and chronic neurological diseases, Awaaz-1.0 serves as a trusted AI-driven companion.
 
-In the project directory, you can run:
+At its core, Awaaz-1.0 employs advanced Speech Detection and Recognition technology, allowing seamless understanding of users' speech patterns. The innovation extends beyond mere detection, incorporating Speech Intervention and Improvisation through engaging 3D models and animations crafted with precision using Blender.
 
-### `npm start`
+Awaaz-1.0 aspires to bridge the gap in speech therapy accessibility. Future plans include reaching rural areas, embracing a multilingual approach to cater to diverse linguistic needs.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Deployment
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+You can see the application live at the following url:
 
-### `npm test`
+```bash
+https://awaaz-tawny.vercel.app/
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
+## Installation
+- Fork Awaaz-1.0 repository.
+- Copy the URL written under the HTTPS section in the Code dropdown button in your forked repository.
+- Open your terminal and in your local repository run the following code:
+    
+    ```bash
+    git init
+    git clone <URL>
+    ```
+- Open local repo in VSCode by typing: 
+    
+    ```bash
+    code .
+    ```
+- Inside local repo terminal write the following code to install all required npm packages:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+    ```bash
+    npm install
+    ```
+- To run the client-side run the following code:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+    ```bash
+    npm start
+    ```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- To run server-side simply run main.py file.
 
-### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)

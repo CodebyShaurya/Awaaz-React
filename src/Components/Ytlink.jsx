@@ -7,7 +7,7 @@ const Ytlink = () => {
         <p>Ready to transform your speech? Follow these steps and start your journey today.</p>
         <div style={{textAlign:"center"}}>
             <a href='www.linkedin.com/in/shaurya--gupta' style={{textAlign:"center"}}>
-                <img src={yt} alt='YT link' />
+                <img className='ytimg' src={yt} alt='YT link' />
             </a>
         </div>
     </div>
