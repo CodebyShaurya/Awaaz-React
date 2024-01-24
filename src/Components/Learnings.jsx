@@ -3,7 +3,7 @@ import Nav from './Nav';
 import '../CSS/Learnings.css';
 import Footer from './Footer';
 import teeth from '../Assets/image 31.png'
-
+import assistance from '../Assets/Component 31.png'
 
 
 class Learnings extends React.Component {
@@ -236,7 +236,8 @@ class Learnings extends React.Component {
                 </div>
                 <div className='personal_assistance' style={{ marginLeft: "15%", marginTop: "10%", marginBottom: "10%" }}>
                     <p style={{ fontSize: "30px", fontWeight: "bold", textDecoration: "underline", color: "white" }}>Personal Assistance</p>
-                    <div style={{ backgroundColor: '#13111A', width: '90%', boxShadow: "0px  9px 8px 1px #CE4DA4, 0px 6px 20px 10px #7353E5", borderRadius: '10px', height: '300px' }}>
+                    <div style={{ backgroundColor: '#13111A', width: '90%', boxShadow: "0px  9px 8px 1px #CE4DA4, 0px 6px 20px 10px #7353E5", borderRadius: '10px', height: 'fit-content', padding:'20px' }}>
+                        <img src={assistance} alt='assistance' height='100%' width='100%'/>
                     </div>
                 </div>
 
