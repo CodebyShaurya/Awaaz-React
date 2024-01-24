@@ -392,3 +392,20 @@
     height: 0px;
     width: 0px;
 }
+
+.instructions::-webkit-scrollbar {
+    width: 5px;
+}
+
+.instructions::-webkit-scrollbar-track {
+    background: #1D232C;
+}
+
+.instructions::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 6px;
+}
+
+.instructions::-webkit-scrollbar-thumb:hover {
+    background-color: #555;
+}
