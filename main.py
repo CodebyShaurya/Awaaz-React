@@ -1,18 +1,14 @@
-from flask import Flask, jsonify, request
-import sounddevice as sd
-from scipy.io.wavfile import write
-from openai import OpenAI
+from flask import Flask, jsonify
 import random
+import pyaudio
+import wave
+from openai import OpenAI
 from flask_cors import CORS
+from key import OPEN_API_KEY
 
 app = Flask(__name__)
-CORS(app)
-
-COUPLED = {}
-OPENAI_API_KEY = "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"  # Replace with your actual OpenAI API key
-FS = 22000  # Sample rate
-SECONDS = 10  # Duration of recording
-
+cors = CORS(app)
+COUPLED = ""
 SOUND_REFERENCE = {
     'S': 'SH',
     'F': 'TH',
@@ -20,6 +16,14 @@ SOUND_REFERENCE = {
     'B': 'V',
     'P': 'F',
     'D': 'T'
+}
+PRONUNCIATION = {
+    "sunday": "sʌn.deɪ",
+    "free": "friː",
+    "love": "lʌv",
+    "boat": "boʊt",
+    "pen": "pen",
+    "tree": "triː"
 }
 LETTERS = ['S', 'F', 'L', 'B', 'P', 'T']
 EXAMPLE = {
@@ -30,10 +34,7 @@ EXAMPLE = {
     'P': 'pen',
     'T': 'tree'
 }
-PRONUNCIATION = {
-    "sunday": "sʌn.deɪ",
-    
-}
+
 REMEDY = {
     'P': ['Put your lips together to make the sound. ', "Vocal cords don't vibrate for voiceless sounds."],
     'B': ['Put your lips together to make the sound. '],
@@ -72,71 +73,118 @@ REMEDY = {
     'H': ['Your lungs provide the airflow for every sound, especially this one.']
 }
 
-def audio_to_text(file_path):
-    client = OpenAI(api_key=OPENAI_API_KEY)
-    audio_file = open(file_path, "rb")
+
+def check(word_given, word_recieved, check_for):
+    # print(word_recieved[0:len(SOUND_REFERENCE[check_for])],SOUND_REFERENCE[check_for],word_recieved,check_for)
+    if word_recieved[0:len(SOUND_REFERENCE[check_for])] == SOUND_REFERENCE[check_for]:
+        # print(word_recieved[len(SOUND_REFERENCE[check_for]):],word_given[len(check_for):])
+        if word_recieved[len(SOUND_REFERENCE[check_for]):] == word_given[len(check_for):]:
+
+            return 20
+        else:
+            return 0
+
+        # return [0, REMEDY[check_for]]
+    elif word_recieved[0:len(check_for)] == word_given[0:len(check_for)]:
+        if word_recieved[len(check_for):] == word_given[len(check_for):]:
+            return 100
+        else:
+            return 75
+    else:
+
+        return 0
+
+
+@app.route('/record', methods=["GET"])
+def record():
+    chunk = 1024  # Record in chunks of 1024 samples
+    sample_format = pyaudio.paInt16  # 16 bits per sample
+    channels = 2
+    fs = 44100  # Record at 44100 samples per second
+    seconds = 5
+    filename = "output.wav"
+
+    p = pyaudio.PyAudio()  # Create an interface to PortAudio
+
+    print('Recording')
+
+    stream = p.open(format=sample_format,
+                    channels=channels,
+                    rate=fs,
+                    frames_per_buffer=chunk,
+                    input=True)
+
+    frames = []  # Initialize array to store frames
+
+    # Store data in chunks for 3 seconds
+    for i in range(0, int(fs / chunk * seconds)):
+        data = stream.read(chunk)
+        frames.append(data)
+
+    # Stop and close the stream
+    stream.stop_stream()
+    stream.close()
+    # Terminate the PortAudio interface
+    p.terminate()
+
+    print('Finished recording')
+
+    # Save the recorded data as a WAV file
+    wf = wave.open(filename, 'wb')
+    wf.setnchannels(channels)
+    wf.setsampwidth(p.get_sample_size(sample_format))
+    wf.setframerate(fs)
+    wf.writeframes(b''.join(frames))
+    wf.close()
+
+    client = OpenAI(api_key=OPEN_API_KEY)
+
+    audio_file = open("output.wav", "rb")
     transcript = client.audio.transcriptions.create(
         model="whisper-1",
         file=audio_file,
         response_format="text"
     )
-    print (transcript)
-    return transcript
-def check(word_given, word_recieved, check_for):
-    if word_recieved[0:len(SOUND_REFERENCE[check_for])] == SOUND_REFERENCE[check_for]:
-        remedy_list = {
-            "remedy_list": REMEDY[check_for]
+    print(transcript)
+    percentage = check(EXAMPLE[COUPLED], transcript, COUPLED)
+
+    print(percentage)
+    word_percentage = {
+        "transcript": transcript,
+        "percentage": percentage
+    }
+    return jsonify(word_percentage)
+
+
+@app.route("/remedy/<averagePercentage>", methods=["POST"])
+def remedy(averagePercentage):
+    if (averagePercentage<50):
+        result = {
+            "remedy":REMEDY[COUPLED]
         }
-        return jsonify(remedy_list)
     else:
-        output = {
-            "output": "PLEASE TRY AGAIN WRONG PRONUNCIATION"
+        result = {
+            "remedy":""
         }
-        return jsonify(output)
 
-@app.route('/record_audio', methods=['POST'])
-def record_audio():
-    global COUPLED
-    try:
-        myrecording = sd.rec(int(SECONDS * FS), samplerate=FS, channels=2)
-        sd.wait()  # Wait until recording is finished
-
-        # Print the path where the file will be saved
-        print("Saving recording to: output.wav")
-
-        # Save the recording to output.wav
-        write('output.wav', FS, myrecording)
-
-        word_from_user = audio_to_text("output.wav")
-
-        output_from_check_word = check(EXAMPLE[COUPLED[0]].upper(), word_from_user.upper(), COUPLED[0])
-
-        # Return both the generated word and the output
-        return jsonify({
-            "generatedWord": EXAMPLE[COUPLED[0]],
-            "output": output_from_check_word.get_json().get('output')
-        })
-
-    except Exception as e:
-        print("Error:", str(e))
-        return jsonify({"error": "An error occurred."})
+    return jsonify(result)
 
 
 @app.route("/generate_word", methods=["GET"])
 def generate_word():
     global COUPLED
+    COUPLED = ""
     COUPLED = random.choice(LETTERS)
+
     word_data = {
-        "word1": EXAMPLE[COUPLED[0]],
-        "letter": COUPLED[0],
+        "word1": EXAMPLE[COUPLED],
+        "letter": COUPLED,
+        "pronunciation": PRONUNCIATION[EXAMPLE[COUPLED[0]]]
+
     }
+    print(COUPLED)
     return jsonify(word_data)
 
 
-
-
-
-
-
 if __name__ == "__main__":
-    app.run(port=3001)
+    app.run(debug=True, port=5000)
