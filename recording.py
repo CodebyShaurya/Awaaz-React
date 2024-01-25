@@ -4,6 +4,7 @@ import pyaudio
 import wave
 from openai import OpenAI
 from flask_cors import CORS
+import key
 
 app = Flask(__name__)
 cors=CORS(app)
@@ -122,8 +123,7 @@ def record():
     wf.setframerate(fs)
     wf.writeframes(b''.join(frames))
     wf.close()
-
-    client = OpenAI(api_key="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")
+    client = OpenAI(api_key=key.OPEN_API_KEY)
 
     audio_file = open("output.wav", "rb")
     transcript = client.audio.transcriptions.create(
