@@ -14,13 +14,21 @@ class Learnings extends React.Component {
             mic: 'OFF',
             listen: 'Listen',
             wordData: null,
-            output: null
-        }
+            output: null,
+            transcripts: ['', '', ''],
+            percentages: ['', '', ''],
+            showButton: false,
+            averageCalculation: false,
+            average: null,
+            improvization: false
+        };
     }
 
     fetchVoice = () => {
         this.setState({ record: true });
         this.setState({ listen: 'Listening' })
+        this.setState({ transcript: "First Attempt" })
+        this.setState({ percentage: "" })
         console.log('try')
         fetch('http://localhost:5000/record', {
             method: 'GET',
@@ -28,21 +36,37 @@ class Learnings extends React.Component {
             .then(response => {
                 if (!response.ok) {
                     this.setState({ record: false });
-                    this.setState({ listen: 'Listen' })
+                    this.setState({ listen: 'Listen' });
                     throw new Error('Error');
                 }
-                const transcript = response.transcript
-                const percentage = response.percentage
-                // console.log(transcript)
-                console.log(percentage)
 
                 return response.json();
             })
             .then(data => {
                 this.setState({ output: data });
                 this.setState({ record: false });
-                this.setState({ listen: 'Listen' })
-                console.log(data);
+                this.setState({ listen: 'Listen' });
+                // this.setState({ transcript: data.transcript });
+                // this.setState({ percentage: data.percentage });
+                // console.log(data);
+                const updatedTranscripts = [...this.state.transcripts];
+                const updatedPercentages = [...this.state.percentages];
+
+                const index = updatedTranscripts.findIndex(transcript => transcript === '');
+                if (index !== -1) {
+                    updatedTranscripts[index] = data.transcript;
+                    updatedPercentages[index] = data.percentage;
+
+                    this.setState({
+                        transcripts: updatedTranscripts,
+                        percentages: updatedPercentages,
+                    });
+
+                    const allFilled = updatedTranscripts.every(transcript => transcript !== '');
+                    if (allFilled) {
+                        this.setState({ showButton: true });
+                    }
+                }
             })
             .catch(error => {
                 console.error('Problem detected', error);
@@ -50,6 +74,32 @@ class Learnings extends React.Component {
 
         console.log('try2')
     }
+
+    fetchRemedy = (averagePercentage) => {
+        fetch(`http://localhost:5000/remedy/${averagePercentage}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Origin': origin,
+            },
+            credentials: 'include',
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Remedy data:', data);
+            })
+            .catch(error => {
+                console.error('Error fetching remedy:', error);
+            });
+
+    };
+
+
 
     fetchData = () => {
         fetch('http://localhost:5000/generate_word', {
@@ -69,6 +119,17 @@ class Learnings extends React.Component {
             .catch(error => {
                 console.error('Problem detected', error);
             });
+    }
+
+    calculateAverage = () => {
+        const percentages = this.state.percentages.map(Number);
+        const average = percentages.reduce((sum, value) => sum + value, 0) / percentages.length;
+        this.setState({ averageCalculation: true })
+        this.setState({ average: average })
+    }
+
+    showImprovisation = () => {
+        this.setState({ improvization: true })
     }
 
     render() {
@@ -165,21 +226,21 @@ class Learnings extends React.Component {
                         <p style={{ textAlign: 'center', color: 'white', fontSize: '22px', paddingTop: '2%', textDecoration: 'underline', letterSpacing: '2px', textUnderlineOffset: '7px' }}>PRESS THE MIC AND START PRONOUNCING THE GIVEN WORD FOR DETECTION</p>
                         <div style={{ display: 'flex', justifyContent: 'space-evenly', marginTop: '10px' }}>
                             <div>
-                            {this.state.listen==='Listen' ? ( 
-                                <div style={{ textAlign: 'center', marginTop: '3%', borderRadius: '50%', width: 'fit-content', padding: '15px', border: 'white 4px solid' }}>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" fill="white" class="bi bi-mic" viewBox="0 0 16 16">
-                                        <path d="M3.5 6.5A.5.5 0 0 1 4 7v1a4 4 0 0 0 8 0V7a.5.5 0 0 1 1 0v1a5 5 0 0 1-4.5 4.975V15h3a.5.5 0 0 1 0 1h-7a.5.5 0 0 1 0-1h3v-2.025A5 5 0 0 1 3 8V7a.5.5 0 0 1 .5-.5" />
-                                        <path d="M10 8a2 2 0 1 1-4 0V3a2 2 0 1 1 4 0zM8 0a3 3 0 0 0-3 3v5a3 3 0 0 0 6 0V3a3 3 0 0 0-3-3" />
-                                    </svg>
-                                </div>
-                                 ) : ( 
-                                <div style={{ textAlign: 'center', marginTop: '3%', borderRadius: '50%', width: 'fit-content', padding: '15px', border: 'red 4px solid' }}>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" fill="red" class="bi bi-mic" viewBox="0 0 16 16">
-                                        <path d="M3.5 6.5A.5.5 0 0 1 4 7v1a4 4 0 0 0 8 0V7a.5.5 0 0 1 1 0v1a5 5 0 0 1-4.5 4.975V15h3a.5.5 0 0 1 0 1h-7a.5.5 0 0 1 0-1h3v-2.025A5 5 0 0 1 3 8V7a.5.5 0 0 1 .5-.5" />
-                                        <path d="M10 8a2 2 0 1 1-4 0V3a2 2 0 1 1 4 0zM8 0a3 3 0 0 0-3 3v5a3 3 0 0 0 6 0V3a3 3 0 0 0-3-3" />
-                                    </svg>
-                                </div>
-                                 ) }
+                                {this.state.listen === 'Listen' ? (
+                                    <div style={{ textAlign: 'center', marginTop: '3%', borderRadius: '50%', width: 'fit-content', padding: '15px', border: 'white 4px solid' }}>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" fill="white" class="bi bi-mic" viewBox="0 0 16 16">
+                                            <path d="M3.5 6.5A.5.5 0 0 1 4 7v1a4 4 0 0 0 8 0V7a.5.5 0 0 1 1 0v1a5 5 0 0 1-4.5 4.975V15h3a.5.5 0 0 1 0 1h-7a.5.5 0 0 1 0-1h3v-2.025A5 5 0 0 1 3 8V7a.5.5 0 0 1 .5-.5" />
+                                            <path d="M10 8a2 2 0 1 1-4 0V3a2 2 0 1 1 4 0zM8 0a3 3 0 0 0-3 3v5a3 3 0 0 0 6 0V3a3 3 0 0 0-3-3" />
+                                        </svg>
+                                    </div>
+                                ) : (
+                                    <div style={{ textAlign: 'center', marginTop: '3%', borderRadius: '50%', width: 'fit-content', padding: '15px', border: 'red 4px solid' }}>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" fill="red" class="bi bi-mic" viewBox="0 0 16 16">
+                                            <path d="M3.5 6.5A.5.5 0 0 1 4 7v1a4 4 0 0 0 8 0V7a.5.5 0 0 1 1 0v1a5 5 0 0 1-4.5 4.975V15h3a.5.5 0 0 1 0 1h-7a.5.5 0 0 1 0-1h3v-2.025A5 5 0 0 1 3 8V7a.5.5 0 0 1 .5-.5" />
+                                            <path d="M10 8a2 2 0 1 1-4 0V3a2 2 0 1 1 4 0zM8 0a3 3 0 0 0-3 3v5a3 3 0 0 0 6 0V3a3 3 0 0 0-3-3" />
+                                        </svg>
+                                    </div>
+                                )}
                                 <div>
                                     {/* {this.state.output ? this.state.output.word1 : 'What you speak will apear here'}<br /> */}
                                 </div>
@@ -188,8 +249,44 @@ class Learnings extends React.Component {
                         </div>
                         <div style={{ marginTop: '3%' }}>
                             <p style={{ color: 'white', fontSize: '22px', letterSpacing: '2px', textDecoration: 'underline', textAlign: 'center', textUnderlineOffset: '7px' }}>ANALYSIS</p>
-                            <div style={{ display: 'flex', justifyContent: 'space-evenly' }}><p style={{ color: 'white', fontSize: '20px' }}>1. Sundae ={`>`} 93%</p><p style={{ color: 'white', fontSize: '20px' }}>2. Sunday ={`>`} 100%</p><p style={{ color: 'white', fontSize: '20px' }}>3. Shunday ={`>`} 2%</p></div>
-                            <div style={{ display: 'flex', justifyContent: 'space-evenly' }}><p style={{ color: 'white', fontSize: '20px' }}>4. Shunday ={`>`} 2%</p><p style={{ color: 'white', fontSize: '20px' }}>5. Shunday ={`>`} 2%</p><p style={{ color: 'white', fontSize: '20px' }}>6. Shundae ={`>`} 2%</p></div>
+                            <div style={{ display: 'flex', justifyContent: 'space-evenly' }}>
+                                {/* {
+                                    for(int i=0; i<3; i++){
+
+                                    }
+                                } */}
+                                {/* {this.state.transcript != "" ? (
+                                    <p style={{ color: 'white', fontSize: '20px' }}>{this.state.transcript} {this.state.percentage}</p>
+
+                                ) : (
+                                    <p style={{ color: 'white', fontSize: '20px' }}>Processing...</p>
+
+                                )}
+                                <p style={{ color: 'white', fontSize: '20px' }}>2. Sunday ={`>`} 100%</p>
+                                <p style={{ color: 'white', fontSize: '20px' }}>3. Shunday ={`>`} 2%</p> */}
+                                <p style={{ color: 'white', fontSize: '30px' }}>{(this.state.transcripts[0] + this.state.percentages[0]) || 'First Attempt'}</p>
+                                <p style={{ color: 'white', fontSize: '30px' }}>{(this.state.transcripts[1] + this.state.percentages[1]) || 'Second Attempt'}</p>
+                                <p style={{ color: 'white', fontSize: '30px' }}>{(this.state.transcripts[2] + this.state.percentages[2]) || 'Third Attempt'}</p>
+                            </div>
+                            {this.state.showButton && (
+                                <button onClick={this.calculateAverage} style={{ marginLeft: '42%', marginTop: '3%', borderRadius: '8px', color: 'black', fontSize: '30px' }}>Do Calculations</button>
+                            )}
+                            {this.state.averageCalculation && (
+                                <div>
+                                    <div style={{ color: 'white', fontSize: '25px', marginLeft: '10%', marginTop: '4%' }}>Average of your 3 inputs is: {this.state.average} %</div>
+                                    {this.state.average > 50 ? (
+                                        <div style={{ color: 'white', fontSize: '20px' }}>
+                                            <p style={{ color: 'white', fontSize: '25px', marginLeft: '10%' }}>Great going, your pronunciation for the following word is up to the mark. You can continue with other words.</p>
+                                            <button style={{ marginLeft: '45%', marginTop: '2%', borderRadius: '8px', color: 'black', fontSize: '30px' }}>Detection</button>
+                                        </div>
+                                    ) : (<div>
+                                        <p style={{ color: 'white', fontSize: '25px', marginLeft: '10%' }}>Since your average percentage of a sound is less than 50%, you are recommended to go for improvisation.</p>
+                                        <button style={{ marginLeft: '45%', marginTop: '3%', borderRadius: '8px', color: 'black', fontSize: '30px' }} onClick={this.showImprovisation}>Improvisation</button>
+                                    </div>)
+                                    }
+                                </div>
+                            )}
+
                         </div>
                         {/* <div>Average % approved = 40%</div>
                         <div>Your output: </div> */}
@@ -206,16 +303,19 @@ class Learnings extends React.Component {
                                 </div>
                                 <div className='instructions' style={{ backgroundColor: '#312c42', border: '5px solid black', borderRadius: '10px', padding: '1%', overflowY: 'scroll' }}>
                                     <h1 style={{ textDecoration: 'underline', color: 'white' }}>Instructions</h1>
-                                    <div style={{ color: 'white', lineHeight: '200%' }}>
+                                    {/* <div style={{ color: 'white', lineHeight: '200%' }}>
                                         The S can actually be made two different ways: one with the tongue tip pointing up, and one with it pointing down. I make the S with the tongue tip pointing down. Sss. Notice how the corners of my lips are either relaxed, ss, or pull out, ss. This is different from SH, shhh, where the corners come in and the lips flare. Let’s compare some photos to look at the tongue position.
                                         The S can actually be made two different ways: one with the tongue tip pointing up, and one with it pointing down. I make the S with the tongue tip pointing down. Sss. Notice how the corners of my lips are either relaxed, ss, or pull out, ss. This is different from SH, shhh, where the corners come in and the lips flare. Let’s compare some photos to look at the tongue position.
                                         The S can actually be made two different ways: one with the tongue tip pointing up, and one with it pointing down. I make the S with the tongue tip pointing down. Sss. Notice how the corners of my lips are either relaxed, ss, or pull out, ss. This is different from SH, shhh, where the corners come in and the lips flare. Let’s compare some photos to look at the tongue position.
                                         The S can actually be made two different ways: one with the tongue tip pointing up, and one with it pointing down. I make the S with the tongue tip pointing down. Sss. Notice how the corners of my lips are either relaxed, ss, or pull out, ss. This is different from SH, shhh, where the corners come in and the lips flare. Let’s compare some photos to look at the tongue position.
-                                    </div>
+                                    </div> */}
+                                    {this.state.improvization && (
+                                        <div style={{ color: 'white', lineHeight: '200%' }}>{this.fetchRemedy(this.state.average)}</div>
+                                    )}
                                 </div>
                             </div>
                             <div style={{ width: '100%', height: '20%', textAlign: 'center' }}>
-                                <p style={{ color: 'white', fontSize: '30px' }}>Done with it? Let’s head to detection again to test you. </p>
+                                <p style={{ color: 'white', fontSize: '30px' }}>Done with it? Let’s head to detection again to test you.</p>
                                 <button style={{ fontSize: '20px', borderRadius: '5px', fontWeight: 'bold' }}>Detection</button>
                             </div>
                         </div>
