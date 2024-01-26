@@ -140,7 +140,7 @@ def record():
     client = OpenAI(api_key=OPEN_API_KEY)
 
     audio_file = open("output.wav", "rb")
-    transcript = client.audio.transcriptions.create(
+    transcript = client.audio.translations.create(
         model="whisper-1",
         file=audio_file,
         response_format="text"
