@@ -10,7 +10,7 @@ def word_accuracy(word1, word2):
     return percentage_correct
 
 # Example usage:
-word1 = "yadnuhs"
+word1 = "sunday"
 word2 = "shunday"
 percentage_correct = word_accuracy(word1, word2)
 p=int(percentage_correct)

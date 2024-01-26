@@ -15,10 +15,8 @@ class Learnings extends React.Component {
             listen: 'Listen',
             wordData: null,
             output: null
-
         }
     }
-
 
     fetchVoice = () => {
         this.setState({ record: true });
@@ -33,6 +31,10 @@ class Learnings extends React.Component {
                     this.setState({ listen: 'Listen' })
                     throw new Error('Error');
                 }
+                const transcript = response.transcript
+                const percentage = response.percentage
+                // console.log(transcript)
+                console.log(percentage)
 
                 return response.json();
             })
@@ -155,7 +157,7 @@ class Learnings extends React.Component {
                     <p style={{ fontSize: "30px", fontWeight: "bold", textDecoration: "underline", color: "white" }}>Detection</p>
                     <div style={{ backgroundColor: '#13111A', width: '90%', boxShadow: "0px  9px 8px 1px #CE4DA4, 0px 6px 20px 10px #7353E5", borderRadius: '10px', height: 'fit-content', padding: '20px' }}>
                         {this.state.wordData ? (
-                            <div style={{color:'white', textAlign:'center', fontSize:'40px'}}>{<div>{this.state.wordData.word1}</div> ?? 'Test Yourself'}/{this.state.wordData.pronunciation}/</div>
+                            <div style={{ color: 'white', textAlign: 'center', fontSize: '40px' }}>{<div>{this.state.wordData.word1}</div> ?? 'Test Yourself'}/{this.state.wordData.pronunciation}/</div>
                         ) : (
                             <div style={{ textAlign: 'center', color: 'white', fontSize: '30px', paddingTop: '2%' }}>Let's test</div>
                         )}
@@ -173,7 +175,7 @@ class Learnings extends React.Component {
                                     {/* {this.state.output ? this.state.output.word1 : 'What you speak will apear here'}<br /> */}
                                 </div>
                                 <div onClick={this.fetchVoice} style={{ textAlign: 'center', marginTop: '12%', color: 'white', fontSize: '30px', letterSpacing: '3px', marginLeft: '1%' }}>{this.state.listen}</div>
-                            </div>                            
+                            </div>
                         </div>
                         <div style={{ marginTop: '3%' }}>
                             <p style={{ color: 'white', fontSize: '22px', letterSpacing: '2px', textDecoration: 'underline', textAlign: 'center', textUnderlineOffset: '7px' }}>ANALYSIS</p>
@@ -193,9 +195,9 @@ class Learnings extends React.Component {
                                 <div style={{ display: 'flex', backgroundColor: 'gray', border: '5px solid black', borderRadius: '10px', justifyContent: 'center', alignItems: 'center' }}>
                                     <img src={teeth} alt='teeth' height='90%' style={{ padding: '1%' }} />
                                 </div>
-                                <div  className='instructions' style={{ backgroundColor: '#312c42', border: '5px solid black', borderRadius: '10px', padding: '1%', overflowY: 'scroll'}}>
+                                <div className='instructions' style={{ backgroundColor: '#312c42', border: '5px solid black', borderRadius: '10px', padding: '1%', overflowY: 'scroll' }}>
                                     <h1 style={{ textDecoration: 'underline', color: 'white' }}>Instructions</h1>
-                                    <div style={{color:'white', lineHeight:'200%'}}>
+                                    <div style={{ color: 'white', lineHeight: '200%' }}>
                                         The S can actually be made two different ways: one with the tongue tip pointing up, and one with it pointing down. I make the S with the tongue tip pointing down. Sss. Notice how the corners of my lips are either relaxed, ss, or pull out, ss. This is different from SH, shhh, where the corners come in and the lips flare. Let’s compare some photos to look at the tongue position.
                                         The S can actually be made two different ways: one with the tongue tip pointing up, and one with it pointing down. I make the S with the tongue tip pointing down. Sss. Notice how the corners of my lips are either relaxed, ss, or pull out, ss. This is different from SH, shhh, where the corners come in and the lips flare. Let’s compare some photos to look at the tongue position.
                                         The S can actually be made two different ways: one with the tongue tip pointing up, and one with it pointing down. I make the S with the tongue tip pointing down. Sss. Notice how the corners of my lips are either relaxed, ss, or pull out, ss. This is different from SH, shhh, where the corners come in and the lips flare. Let’s compare some photos to look at the tongue position.
@@ -212,8 +214,8 @@ class Learnings extends React.Component {
                 </div>
                 <div className='personal_assistance' style={{ marginLeft: "15%", marginTop: "10%", marginBottom: "10%" }}>
                     <p style={{ fontSize: "30px", fontWeight: "bold", textDecoration: "underline", color: "white" }}>Personal Assistance</p>
-                    <div style={{ backgroundColor: '#13111A', width: '90%', boxShadow: "0px  9px 8px 1px #CE4DA4, 0px 6px 20px 10px #7353E5", borderRadius: '10px', height: 'fit-content', padding:'20px' }}>
-                        <img src={assistance} alt='assistance' height='100%' width='100%'/>
+                    <div style={{ backgroundColor: '#13111A', width: '90%', boxShadow: "0px  9px 8px 1px #CE4DA4, 0px 6px 20px 10px #7353E5", borderRadius: '10px', height: 'fit-content', padding: '20px' }}>
+                        <img src={assistance} alt='assistance' height='100%' width='100%' />
                     </div>
                 </div>
 
