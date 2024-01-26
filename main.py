@@ -146,7 +146,7 @@ def record():
         response_format="text"
     )
     print(transcript)
-    percentage = check(EXAMPLE[COUPLED], transcript, COUPLED)
+    percentage = check(EXAMPLE[COUPLED].upper(), transcript.upper(), COUPLED.upper())
 
     print(percentage)
     word_percentage = {
