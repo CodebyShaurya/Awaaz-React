@@ -75,24 +75,28 @@ REMEDY = {
 
 
 def check(word_given, word_recieved, check_for):
-    print(word_given,word_recieved,check_for)
-    if word_recieved[0:len(SOUND_REFERENCE[check_for])] == SOUND_REFERENCE[check_for]:
-        # print(word_recieved[len(SOUND_REFERENCE[check_for]):],word_given[len(check_for):])
-        if word_recieved[len(SOUND_REFERENCE[check_for]):] == word_given[len(check_for):]:
+        for i in range(len(word_recieved)):
+              if word_recieved[i]=='.' or word_recieved[i]=='/' or word_recieved[i]==' ':
+                    word_recieved=word_recieved[0:i]
+                    break
+        print(word_given,word_recieved,check_for)
+        if word_recieved[0:len(SOUND_REFERENCE[check_for])] == SOUND_REFERENCE[check_for]:
+            #print(word_recieved[len(SOUND_REFERENCE[check_for]):],word_given[len(check_for):])
+            if word_recieved[len(SOUND_REFERENCE[check_for]):]==word_given[len(check_for):]:
 
-            return 20
+                 return 20
+            else:
+                 return 0
+
+            #return [0,REMEDY[check_for]]
+        elif word_recieved[0:len(check_for)]==word_given[0:len(check_for)]:
+            if word_recieved[len(check_for):]==word_given[len(check_for):]:
+                 return 100
+            else:
+                 return 75
         else:
+            # print('dasd')
             return 0
-
-        # return [0, REMEDY[check_for]]
-    elif word_recieved[0:len(check_for)] == word_given[0:len(check_for)]:
-        if word_recieved[len(check_for):] == word_given[len(check_for):]:
-            return 100
-        else:
-            return 75
-    else:
-
-        return 0
 
 
 @app.route('/record', methods=["GET"])
