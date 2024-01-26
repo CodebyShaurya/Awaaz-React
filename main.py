@@ -76,9 +76,11 @@ REMEDY = {
 
 def check(word_given, word_recieved, check_for):
         for i in range(len(word_recieved)):
-              if word_recieved[i]=='.' or word_recieved[i]=='/' or word_recieved[i]==' ':
-                    word_recieved=word_recieved[0:i]
-                    break
+            if word_recieved[i]=='.' or word_recieved[i]=='/n' or word_recieved[i]==' ':
+                print(i)
+                word_recieved=word_recieved[0:i]
+                break
+        
         print(word_given,word_recieved,check_for)
         if word_recieved[0:len(SOUND_REFERENCE[check_for])] == SOUND_REFERENCE[check_for]:
             #print(word_recieved[len(SOUND_REFERENCE[check_for]):],word_given[len(check_for):])

@@ -132,6 +132,26 @@ class Learnings extends React.Component {
         this.setState({ improvization: true })
     }
 
+    stestatezero = () => {
+        this.setState({
+
+            record: false,
+            mic: 'OFF',
+            listen: 'Listen',
+            wordData: null,
+            output: null,
+            transcripts: ['', '', ''],
+            percentages: ['', '', ''],
+            showButton: false,
+            averageCalculation: false,
+            average: null,
+            improvization: false
+        }
+
+        )
+    }
+
+
     render() {
         return (
             <>
@@ -277,7 +297,7 @@ class Learnings extends React.Component {
                                     {this.state.average > 50 ? (
                                         <div style={{ color: 'white', fontSize: '20px' }}>
                                             <p style={{ color: 'white', fontSize: '25px', marginLeft: '10%' }}>Great going, your pronunciation for the following word is up to the mark. You can continue with other words.</p>
-                                            <button style={{ marginLeft: '45%', marginTop: '2%', borderRadius: '8px', color: 'black', fontSize: '30px' }}>Detection</button>
+                                            <button style={{ marginLeft: '45%', marginTop: '2%', borderRadius: '8px', color: 'black', fontSize: '30px' }} onClick={this.stestatezero}>Detection</button>
                                         </div>
                                     ) : (<div>
                                         <p style={{ color: 'white', fontSize: '25px', marginLeft: '10%' }}>Since your average percentage of a sound is less than 50%, you are recommended to go for improvisation.</p>
