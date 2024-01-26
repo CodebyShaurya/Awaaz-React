@@ -11,7 +11,7 @@ import mul from '../Assets/multimodal_learning.png'
 const App = () => {
   const featuresRef = useRef(null);
   return (
-    <div ref={featuresRef} id='features'>
+    <div ref={featuresRef} id='Feature'>
       <div className='crdgrid'>
         <Card src={eng} name='Engaging Interface' details='Interactive sessions for an immersive learning experience.' />
         <Card src={pro} name='Progress Tracking' details='Track success, analyse and celebrate milestone. ' />

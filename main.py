@@ -7,7 +7,7 @@ from flask_cors import CORS
 from key import OPEN_API_KEY
 
 app = Flask(__name__)
-cors = CORS(app)
+cors = CORS(app, supports_credentials=True)
 COUPLED = ""
 SOUND_REFERENCE = {
     'S': 'SH',
@@ -36,38 +36,28 @@ EXAMPLE = {
 }
 
 REMEDY = {
-    'P': ['Put your lips together to make the sound. ', "Vocal cords don't vibrate for voiceless sounds."],
+    'P': ['Put your lips together to make the sound. Vocal cords dont vibrate for voiceless sounds.'],
     'B': ['Put your lips together to make the sound. '],
-    'M': ['Put your lips together to make the sound. ', 'Air flows through your nose.'],
+    'M': ['Put your lips together to make the sound. Air flows through your nose.'],
     'W': ['Put your lips together and shape your mouth like you are saying "oo".'],
-    'F': ['Place your bottom lip against your upper front teeth. ', 'Top teeth may be on your bottom lip.'],
-    'V': ['Place your bottom lip against your upper front teeth. ', 'Top teeth may be on your bottom lip.'],
-    'S': ['Keep your teeth close together to make the sound. ',
-          'The ridge right behind your two front teeth is involved. ', 'The front of your tongue is used. ',
-          "Vocal cords don't vibrate for voiceless sounds."],
-    'Z': ['Keep your teeth close together to make the sound. ',
-          'The ridge right behind your two front teeth is involved. ', 'The front of your tongue is used.'],
-    'th': ['Place your top teeth on your bottom lip and let your tongue go between your teeth for the sound. ',
-           'The front of your tongue is involved.'],
-    'TH': [
-        'Place your top teeth on your bottom lip and let your tongue go between your teeth for the sound (as in thin). ',
-        'The front of your tongue is involved.'],
-    'N': ['Air flows through your nose. ', 'The ridge right behind your two front teeth is involved. ',
-          'The front of your tongue is used.'],
+    'F': ['Place your bottom lip against your upper front teeth. Top teeth may be on your bottom lip.'],
+    'V': ['Place your bottom lip against your upper front teeth. Top teeth may be on your bottom lip.'],
+    'S': ["Keep your teeth close together to make the sound. The ridge right behind your two front teeth is involved. The front of your tongue is used. Vocal cords don't vibrate for voiceless sounds."],
+    'Z': ['Keep your teeth close together to make the sound. The ridge right behind your two front teeth is involved. The front of your tongue is used.'],
+    'th': ['Place your top teeth on your bottom lip and let your tongue go between your teeth for the sound. The front of your tongue is involved.'],
+    'TH': ['Place your top teeth on your bottom lip and let your tongue go between your teeth for the sound (as in thin). The front of your tongue is involved. The front of your tongue is used.'],
     'NG': ['Air flows through your nose.'],
     'SING': ['Air flows through your nose.'],
-    'L': ['The ridge right behind your two front teeth is involved. ', 'The front of your tongue is used.'],
-    'T': ['The ridge right behind your two front teeth is involved. ', 'The front of your tongue is used. ',
-          "Vocal cords don't vibrate for voiceless sounds."],
-    'D': ['The ridge right behind your two front teeth is involved. ', 'The front of your tongue is used.'],
+    'L': ['The ridge right behind your two front teeth is involved. The front of your tongue is used.'],
+    'T': ["The ridge right behind your two front teeth is involved. The front of your tongue is used. Vocal cords don't vibrate for voiceless sounds."],
+    'D': ['The ridge right behind your two front teeth is involved. The front of your tongue is used.'],
     'CH': ['The front-roof of your mouth is the right spot for the sound.'],
-    'J': ['The front-roof of your mouth is the right spot for the sound. ', 'The front of your tongue is used.'],
-    'SH': ['The front-roof of your mouth is the right spot for the sound. ', 'The front of your tongue is used.'],
-    'ZH': ['The front-roof of your mouth is the right spot for the sound. ', 'The front of your tongue is used.'],
-    'K': ['The back-roof of your mouth is the right spot for the sound. ', 'The back of your tongue is used. ',
-          "Vocal cords don't vibrate for voiceless sounds."],
-    'G': ['The back-roof of your mouth is the right spot for the sound. ', 'The back of your tongue is used.'],
-    'R': ['The back-roof of your mouth is the right spot for the sound. ', 'The back of your tongue is used.'],
+    'J': ['The front-roof of your mouth is the right spot for the sound. The front of your tongue is used.'],
+    'SH': ['The front-roof of your mouth is the right spot for the sound. The front of your tongue is used.'],
+    'ZH': ['The front-roof of your mouth is the right spot for the sound. The front of your tongue is used.'],
+    'K': ["The back-roof of your mouth is the right spot for the sound. The back of your tongue is used. Vocal cords don't vibrate for voiceless sounds."],
+    'G': ['The back-roof of your mouth is the right spot for the sound. The back of your tongue is used.'],
+    'R': ['The back-roof of your mouth is the right spot for the sound. The back of your tongue is used.'],
     'Y': ['The front of your tongue is used.'],
     'CH': ['The front of your tongue is used.'],
     'H': ['Your lungs provide the airflow for every sound, especially this one.']
@@ -76,11 +66,9 @@ REMEDY = {
 
 def check(word_given, word_recieved, check_for):
         for i in range(len(word_recieved)):
-            if word_recieved[i]=='.' or word_recieved[i]=='/n' or word_recieved[i]==' ':
-                print(i)
-                word_recieved=word_recieved[0:i]
-                break
-        
+              if word_recieved[i]=='.' or word_recieved[i]=='/' or word_recieved[i]==' ':
+                    word_recieved=word_recieved[0:i]
+                    break
         print(word_given,word_recieved,check_for)
         if word_recieved[0:len(SOUND_REFERENCE[check_for])] == SOUND_REFERENCE[check_for]:
             #print(word_recieved[len(SOUND_REFERENCE[check_for]):],word_given[len(check_for):])
@@ -162,7 +150,7 @@ def record():
     return jsonify(word_percentage)
 
 
-@app.route("/remedy/<averagePercentage>", methods=["GET", "POST"])
+@app.route("/remedy/<int:averagePercentage>", methods=["GET", "POST"])
 def remedy(averagePercentage):
     if (averagePercentage<50):
         result = {

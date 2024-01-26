@@ -16,9 +16,13 @@ const Content = ({ scrollToFeatures }) => {
             </p>
             <div className='navbar btncontent'>
                 <div />
+                <a href="/learnings">
                 <button className='SignOut Navcontent1'> Get Started </button>
+                </a>
                 <div />
+                <a href="#Feature">
                 <button className='Features Navcontent1'> Browse Features </button>
+                </a>
                 <div />
             </div>
             <div style={{textAlign:"center"}}>

@@ -20,7 +20,8 @@ class Learnings extends React.Component {
             showButton: false,
             averageCalculation: false,
             average: null,
-            improvization: false
+            improvization: false,
+            improvizationData : null
         };
     }
 
@@ -91,7 +92,8 @@ class Learnings extends React.Component {
                 return response.json();
             })
             .then(data => {
-                console.log('Remedy data:', data);
+                this.setState({improvizationData : data})
+                console.log(this.state.improvizationData.remedy)
             })
             .catch(error => {
                 console.error('Error fetching remedy:', error);
@@ -130,6 +132,7 @@ class Learnings extends React.Component {
 
     showImprovisation = () => {
         this.setState({ improvization: true })
+
     }
 
     stestatezero = () => {
@@ -234,7 +237,7 @@ class Learnings extends React.Component {
                     <p style={{ backgroundImage: "linear-gradient(to right,#CE4DA4,#7353E5)", WebkitBackgroundClip: "text", color: "transparent", fontSize: "40px", fontWeight: "bold" }}>Empower your voice each day, and <br /> watch speech disorders fade away.</p>
                 </div>
 
-                <div className='detection' style={{ marginLeft: "15%" }}>
+                <div id ='detection' className='detection' style={{ marginLeft: "15%" }}>
                     <p style={{ fontSize: "30px", fontWeight: "bold", textDecoration: "underline", color: "white" }}>Detection</p>
                     <div style={{ backgroundColor: '#13111A', width: '90%', boxShadow: "0px  9px 8px 1px #CE4DA4, 0px 6px 20px 10px #7353E5", borderRadius: '10px', height: 'fit-content', padding: '20px' }}>
                         {this.state.wordData ? (
@@ -297,11 +300,15 @@ class Learnings extends React.Component {
                                     {this.state.average > 50 ? (
                                         <div style={{ color: 'white', fontSize: '20px' }}>
                                             <p style={{ color: 'white', fontSize: '25px', marginLeft: '10%' }}>Great going, your pronunciation for the following word is up to the mark. You can continue with other words.</p>
+                                            <a href="#detection">
                                             <button style={{ marginLeft: '45%', marginTop: '2%', borderRadius: '8px', color: 'black', fontSize: '30px' }} onClick={this.stestatezero}>Detection</button>
+                                            </a>
                                         </div>
                                     ) : (<div>
                                         <p style={{ color: 'white', fontSize: '25px', marginLeft: '10%' }}>Since your average percentage of a sound is less than 50%, you are recommended to go for improvisation.</p>
+                                        <a href="#Improvisation">
                                         <button style={{ marginLeft: '45%', marginTop: '3%', borderRadius: '8px', color: 'black', fontSize: '30px' }} onClick={this.showImprovisation}>Improvisation</button>
+                                        </a>
                                     </div>)
                                     }
                                 </div>
@@ -313,7 +320,7 @@ class Learnings extends React.Component {
                     </div>
                 </div>
 
-                <div className='improvization' style={{ marginLeft: "15%", marginTop: "10%", marginBottom: "10%" }}>
+                <div id="Improvisation" className='improvization' style={{ marginLeft: "15%", marginTop: "10%", marginBottom: "10%" }}>
                     <p style={{ fontSize: "30px", fontWeight: "bold", textDecoration: "underline", color: "white" }}>Improvization</p>
                     <div style={{ backgroundColor: '#13111A', width: '90%', boxShadow: "0px  9px 8px 1px #CE4DA4, 0px 6px 20px 10px #7353E5", borderRadius: '10px', height: '600px' }}>
                         <div style={{ padding: '3%', height: '100%' }}>
@@ -323,12 +330,10 @@ class Learnings extends React.Component {
                                 </div>
                                 <div className='instructions' style={{ backgroundColor: '#312c42', border: '5px solid black', borderRadius: '10px', padding: '1%', overflowY: 'scroll' }}>
                                     <h1 style={{ textDecoration: 'underline', color: 'white' }}>Instructions</h1>
-                                    {/* <div style={{ color: 'white', lineHeight: '200%' }}>
-                                        The S can actually be made two different ways: one with the tongue tip pointing up, and one with it pointing down. I make the S with the tongue tip pointing down. Sss. Notice how the corners of my lips are either relaxed, ss, or pull out, ss. This is different from SH, shhh, where the corners come in and the lips flare. Let’s compare some photos to look at the tongue position.
-                                        The S can actually be made two different ways: one with the tongue tip pointing up, and one with it pointing down. I make the S with the tongue tip pointing down. Sss. Notice how the corners of my lips are either relaxed, ss, or pull out, ss. This is different from SH, shhh, where the corners come in and the lips flare. Let’s compare some photos to look at the tongue position.
-                                        The S can actually be made two different ways: one with the tongue tip pointing up, and one with it pointing down. I make the S with the tongue tip pointing down. Sss. Notice how the corners of my lips are either relaxed, ss, or pull out, ss. This is different from SH, shhh, where the corners come in and the lips flare. Let’s compare some photos to look at the tongue position.
-                                        The S can actually be made two different ways: one with the tongue tip pointing up, and one with it pointing down. I make the S with the tongue tip pointing down. Sss. Notice how the corners of my lips are either relaxed, ss, or pull out, ss. This is different from SH, shhh, where the corners come in and the lips flare. Let’s compare some photos to look at the tongue position.
-                                    </div> */}
+                                    {
+                                        this.state.improvizationData ? <p style={{ color: 'white', fontSize: '30px' }}>{this.state.improvizationData.remedy} </p>: <div>dsds</div>
+                                    }
+
                                     {this.state.improvization && (
                                         <div style={{ color: 'white', lineHeight: '200%' }}>{this.fetchRemedy(this.state.average)}</div>
                                     )}
@@ -336,7 +341,9 @@ class Learnings extends React.Component {
                             </div>
                             <div style={{ width: '100%', height: '20%', textAlign: 'center' }}>
                                 <p style={{ color: 'white', fontSize: '30px' }}>Done with it? Let’s head to detection again to test you.</p>
-                                <button style={{ fontSize: '20px', borderRadius: '5px', fontWeight: 'bold' }}>Detection</button>
+                                <a href="#detection">
+                                <button style={{ fontSize: '20px', borderRadius: '5px', fontWeight: 'bold' }} onClick={this.stestatezero}>Detection</button>
+                                </a>
                             </div>
                         </div>
                     </div>
