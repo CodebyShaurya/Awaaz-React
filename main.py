@@ -15,7 +15,7 @@ SOUND_REFERENCE = {
     'L': 'R',
     'B': 'V',
     'P': 'F',
-    'D': 'T'
+    'T': 'D'
 }
 PRONUNCIATION = {
     "sunday": "sʌn.deɪ",
