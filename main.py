@@ -75,7 +75,7 @@ REMEDY = {
 
 
 def check(word_given, word_recieved, check_for):
-    # print(word_recieved[0:len(SOUND_REFERENCE[check_for])],SOUND_REFERENCE[check_for],word_recieved,check_for)
+    print(word_given,word_recieved,check_for)
     if word_recieved[0:len(SOUND_REFERENCE[check_for])] == SOUND_REFERENCE[check_for]:
         # print(word_recieved[len(SOUND_REFERENCE[check_for]):],word_given[len(check_for):])
         if word_recieved[len(SOUND_REFERENCE[check_for]):] == word_given[len(check_for):]:
@@ -145,7 +145,7 @@ def record():
         file=audio_file,
         response_format="text"
     )
-    print(transcript)
+    print(transcript.upper())
     percentage = check(EXAMPLE[COUPLED].upper(), transcript.upper(), COUPLED.upper())
 
     print(percentage)
