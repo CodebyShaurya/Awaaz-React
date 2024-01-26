@@ -7,7 +7,7 @@ from flask_cors import CORS
 from key import OPEN_API_KEY
 
 app = Flask(__name__)
-cors = CORS(app)
+cors = CORS(app, supports_credentials=True)
 COUPLED = ""
 SOUND_REFERENCE = {
     'S': 'SH',
@@ -160,7 +160,7 @@ def record():
     return jsonify(word_percentage)
 
 
-@app.route("/remedy/<averagePercentage>", methods=["GET", "POST"])
+@app.route("/remedy/<int:averagePercentage>", methods=["GET", "POST"])
 def remedy(averagePercentage):
     if (averagePercentage<50):
         result = {
