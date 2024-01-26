@@ -156,7 +156,7 @@ def record():
     return jsonify(word_percentage)
 
 
-@app.route("/remedy/<averagePercentage>", methods=["POST"])
+@app.route("/remedy/<averagePercentage>", methods=["GET", "POST"])
 def remedy(averagePercentage):
     if (averagePercentage<50):
         result = {
